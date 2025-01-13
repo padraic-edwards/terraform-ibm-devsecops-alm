@@ -60,12 +60,8 @@ variable "app_repo_existing_git_id" {
 
 variable "app_repo_existing_git_provider" {
   type        = string
+  description = "By default this gets set as 'hostedgit', else set to 'githubconsolidated' for GitHub repositories."
   default     = ""
-  description = "Git provider for application repo. If not set will default to `hostedgit`."
-  validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.app_repo_existing_git_provider)
-    error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for evidence repository."
-  }
 }
 
 variable "app_repo_existing_url" {
@@ -145,6 +141,12 @@ variable "compliance_pipeline_repo_auth_type" {
   default     = ""
 }
 
+variable "compliance_pipeline_repo_git_id" {
+  type        = string
+  description = "Set this value to `github` for github.com, or to the ID of a custom GitHub Enterprise server."
+  default     = ""
+}
+
 variable "compliance_pipeline_repo_blind_connection" {
   type        = string
   description = "Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server."
@@ -166,7 +168,7 @@ variable "compliance_pipeline_repo_root_url" {
 variable "compliance_pipeline_repo_use_group_settings" {
   type        = bool
   description = "Set to `true` to apply group level repository settings to the compliance pipeline repository. See `repo_git_provider` as an example."
-  default     = false
+  default     = true
 }
 
 variable "compliance_pipeline_repo_title" {
@@ -178,17 +180,11 @@ variable "compliance_pipeline_repo_title" {
 variable "compliance_pipeline_repo_git_provider" {
   type        = string
   default     = ""
-  description = "Git provider for compliance pipeline repo. If not set will default to `hostedgit`."
+  description = "Git provider for pipeline repo"
   validation {
     condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.compliance_pipeline_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for pipeline repo."
   }
-}
-
-variable "compliance_pipeline_repo_git_id" {
-  type        = string
-  description = "Set this value to `github` for github.com, or to the ID of a custom GitHub Enterprise server."
-  default     = ""
 }
 
 variable "compliance_pipeline_repo_git_token_secret_crn" {
@@ -312,7 +308,7 @@ variable "create_icr_namespace" {
 variable "create_kubernetes_access_policy" {
   type        = bool
   description = "Add a Kubernetes access policy to the generated IAM access key. See `create_ibmcloud_api_key`."
-  default     = false
+  default     = true
 }
 
 variable "create_privateworker_secret" {
@@ -351,16 +347,16 @@ variable "enable_pipeline_notifications" {
   default     = ""
 }
 
-variable "enable_secrets_manager" {
-  description = "Set to `true` to enable the Secrets Manager integrations."
-  type        = string
-  default     = "true"
-}
-
 variable "enable_privateworker" {
   type        = string
   default     = "false"
   description = "Set to `true` to enable private workers for the CI, CD, CC and PR pipelines. A valid service api key must be set in Secrets Manager. The name of this secret can be specified using `privateworker_credentials_secret_name`."
+}
+
+variable "enable_secrets_manager" {
+  description = "Set to `true` to enable the Secrets Manager integrations."
+  type        = string
+  default     = "true"
 }
 
 variable "enable_slack" {
@@ -414,7 +410,7 @@ variable "evidence_repo_existing_git_id" {
 variable "evidence_repo_existing_git_provider" {
   type        = string
   default     = ""
-  description = "Git provider for evidence repo. If not set will default to `hostedgit`."
+  description = "By default this gets set as 'hostedgit', else set to 'githubconsolidated' for GitHub repositories."
   validation {
     condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.evidence_repo_existing_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for evidence repository."
@@ -489,7 +485,7 @@ variable "inventory_repo_existing_git_id" {
 variable "inventory_repo_existing_git_provider" {
   type        = string
   default     = ""
-  description = "Git provider for the inventory repo. If not set will default to `hostedgit`."
+  description = "By default this gets set as 'hostedgit', else set to 'githubconsolidated' for GitHub repositories."
   validation {
     condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.inventory_repo_existing_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for Inventory repository."
@@ -558,7 +554,7 @@ variable "issues_repo_existing_git_id" {
 variable "issues_repo_existing_git_provider" {
   type        = string
   default     = ""
-  description = "Git provider for the issues repo. If not set will default to `hostedgit`."
+  description = "By default this gets set as 'hostedgit', else set to 'githubconsolidated' for GitHub repositories."
   validation {
     condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.issues_repo_existing_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for issue repository."
@@ -671,6 +667,12 @@ variable "pipeline_ibmcloud_api_key_secret_group" {
   default     = ""
 }
 
+variable "pipeline_config_group" {
+  type        = string
+  description = "Specify the Git user or group for the compliance pipeline repository."
+  default     = ""
+}
+
 variable "pipeline_config_repo_git_id" {
   type        = string
   description = "Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server."
@@ -685,12 +687,6 @@ variable "pipeline_config_repo_git_provider" {
     condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.pipeline_config_repo_git_provider)
     error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for pipeline config repo."
   }
-}
-
-variable "pipeline_config_group" {
-  type        = string
-  description = "Specify the Git user or group for the compliance pipeline repository."
-  default     = ""
 }
 
 variable "pipeline_config_repo_git_token_secret_name" {
@@ -853,15 +849,15 @@ variable "repo_group" {
   default     = ""
 }
 
-variable "repo_root_url" {
-  type        = string
-  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
-  default     = ""
-}
-
 variable "repo_secret_group" {
   type        = string
   description = "Secret group in Secrets Manager that contains the secret for the repository. This variable will set the same secret group for all the repositories. Can be overriden on a per secret group basis. Only applies when using Secrets Manager."
+  default     = ""
+}
+
+variable "repo_root_url" {
+  type        = string
+  description = "(Optional) The Root URL of the server. e.g. https://git.example.com."
   default     = ""
 }
 
@@ -1029,7 +1025,7 @@ variable "sm_name" {
 
 variable "sm_resource_group" {
   type        = string
-  description = "The name of the existing resource group containing the Secrets Manager instance for your secrets.. This applies to the CI, CD and CC Secret Manager integrations. See `ci_sm_resource_group`, `cd_sm_resource_group`, and `cc_sm_resource_group` to set these values independently."
+  description = "The name of the existing resource group containing the Secrets Manager instance for your secrets.. This applies to the CI, CD and CC Secret Manager integrations."
   default     = "Default"
 }
 
@@ -1041,7 +1037,7 @@ variable "sm_secret_expiration_period" {
 
 variable "sm_secret_group" {
   type        = string
-  description = "The Secrets Manager secret group containing the secrets for the DevSecOps pipelines. This applies to the CI, CD and CC Secret Manager integrations. See `ci_sm_secret_group`, `cd_sm_secret_group`, and `cc_sm_secret_group` to set these values independently."
+  description = "The Secrets Manager secret group containing the secrets for the DevSecOps pipelines. This applies to the CI, CD and CC Secret Manager integrations."
   default     = "Default"
 }
 
@@ -1100,7 +1096,7 @@ variable "toolchain_name" {
 
 variable "toolchain_region" {
   type        = string
-  description = "The region identifier that will be used, by default, for all resource creation and service instance lookup."
+  description = "The region identifier that will be used, by default, for all resource creation and service instance lookup. This can be overridden on a per resource/service basis."
   default     = "us-south"
 }
 
@@ -1856,6 +1852,16 @@ variable "cd_change_management_repo_auth_type" {
   default     = ""
 }
 
+variable "cd_change_management_repo_git_provider" {
+  type        = string
+  default     = ""
+  description = "By default this gets set as 'hostedgit', else set to 'githubconsolidated' for GitHub repositories."
+  validation {
+    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.cd_change_management_repo_git_provider)
+    error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for evidence repository."
+  }
+}
+
 variable "change_management_existing_url" {
   type        = string
   description = "The URL for an existing Change Management repository."
@@ -1866,16 +1872,6 @@ variable "change_management_repo_git_id" {
   type        = string
   description = "Set this value to `github` for github.com, or to the ID of a custom GitHub Enterprise server."
   default     = ""
-}
-
-variable "cd_change_management_repo_git_provider" {
-  type        = string
-  default     = ""
-  description = "Git provider for the change management repo. If not set will default to `hostedgit`."
-  validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.cd_change_management_repo_git_provider)
-    error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for change management repository."
-  }
 }
 
 variable "cd_change_management_repo_git_token_secret_crn" {
@@ -2185,7 +2181,7 @@ variable "cd_evidence_repo_secret_group" {
 
 variable "continuous_delivery_service_name" {
   type        = string
-  description = "The name of the Continuous Delivery service instance."
+  description = "The name of the CD instance."
   default     = "cd-devsecops"
 }
 
@@ -2743,12 +2739,8 @@ variable "ci_app_repo_existing_git_id" {
 
 variable "ci_app_repo_existing_git_provider" {
   type        = string
-  description = "Git provider for application repo. If not set will default to `hostedgit`."
+  description = "By default this gets set as 'hostedgit', else set to 'githubconsolidated' for GitHub repositories."
   default     = ""
-  validation {
-    condition     = contains(["hostedgit", "githubconsolidated", "gitlab", ""], var.ci_app_repo_existing_git_provider)
-    error_message = "Must be either \"hostedgit\" or \"gitlab\" or \"githubconsolidated\" for evidence repository."
-  }
 }
 
 variable "ci_app_repo_existing_url" {
@@ -3513,18 +3505,6 @@ variable "use_app_repo_for_cd_deploy" {
   type        = bool
   description = "Set to `true` to use the CI sample application repository as the deployment repository in the CD pipeline. This will be set in the pipeline config integration."
   default     = false
-}
-
-variable "service_name_pipeline" {
-  type        = string
-  description = "The name of the Service ID for pipeline and toolchain access."
-  default     = "toolchain-pipeline-service-id"
-}
-
-variable "service_name_cos" {
-  type        = string
-  description = "The name of the Service ID for COS access."
-  default     = "cos-service-id"
 }
 
 variable "add_pipeline_definitions" {

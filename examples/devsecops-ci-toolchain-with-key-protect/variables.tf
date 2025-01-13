@@ -19,58 +19,22 @@ variable "toolchain_region" {
   default     = "us-south"
 }
 
-variable "ci_registry_namespace" {
+variable "registry_namespace" {
   type        = string
   description = "Unique namespace within the IBM Cloud Container Registry where application image need to be stored."
   default     = "my-registry-namespace"
 }
 
-variable "ci_registry_region" {
-  type        = string
-  description = "The IBM Cloud Region where the IBM Cloud Container Registry namespace is to be created."
-  default     = "ibm:yp:us-south"
-}
-
-variable "ci_cluster_name" {
+variable "cluster_name" {
   type        = string
   description = "Name of the Kubernetes cluster where the application will be deployed."
   default     = "mycluster-free"
 }
 
-variable "ci_cluster_namespace" {
-  type        = string
-  description = "Name of the Kubernetes cluster namespace where the application will be deployed."
-  default     = "dev"
-}
-
-variable "ci_dev_region" {
-  type        = string
-  description = "Region of the Kubernetes cluster where the application will be deployed."
-  default     = "ibm:yp:us-south"
-}
-
-variable "ci_dev_resource_group" {
-  type        = string
-  description = "The cluster resource group."
-  default     = "Default"
-}
-
-variable "cd_cluster_name" {
-  type        = string
-  description = "Name of the Kubernetes cluster where the application is deployed."
-  default     = "mycluster-free"
-}
-
-variable "cd_cluster_namespace" {
-  type        = string
-  description = "Name of the Kubernetes cluster namespace where the application is deployed."
-  default     = "prod"
-}
-
 variable "enable_key_protect" {
   type        = bool
   description = "Set to enable Key Protect Integrations. "
-  default     = true
+  default     = false
 }
 
 variable "enable_secrets_manager" {
@@ -97,30 +61,6 @@ variable "kp_location" {
   default     = "us-south"
 }
 
-variable "sm_location" {
-  type        = string
-  description = "The region location of the Secrets Manager instance."
-  default     = "us-south"
-}
-
-variable "sm_name" {
-  type        = string
-  description = "The name of the Secret Managers instance."
-  default     = "sm-instance"
-}
-
-variable "sm_resource_group" {
-  type        = string
-  description = "The resource group containing the Secrets Manager instance."
-  default     = "Default"
-}
-
-variable "sm_secret_group" {
-  type        = string
-  description = "Group in Secrets Manager for organizing/grouping secrets."
-  default     = "Default"
-}
-
 variable "create_ci_toolchain" {
   description = "Flag which determines if the DevSecOps CI toolchain is created. If this toolchain is not created then values must be set for the following variables, evidence_repo_url, issues_repo_url and inventory_repo_url."
   type        = bool
@@ -130,11 +70,11 @@ variable "create_ci_toolchain" {
 variable "create_cd_toolchain" {
   description = "Boolean flag which determines if the DevSecOps CD toolchain is created."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "create_cc_toolchain" {
   description = "Boolean flag which determines if the DevSecOps CC toolchain is created."
   type        = bool
-  default     = false
+  default     = true
 }

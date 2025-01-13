@@ -15,12 +15,15 @@ func TestRunNonDefaultExample(t *testing.T) {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
-		TerraformDir: defaultExampleTerraformDir,
+		TerraformDir: nonDefaultExampleTerraformDir,
 		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
 			List: []string{
-				"module.terraform_devsecops_alm.module.devsecops_cc_toolchain[0].module.pipeline_cc.ibm_cd_tekton_pipeline_trigger.cc_pipeline_timed_trigger",
-				"module.terraform_devsecops_alm.module.devsecops_cd_toolchain[0].module.repositories.ibm_cd_toolchain_tool_hostedgit.deployment_repo_clone_from_hostedgit[0]",
+				"module.terraform_devsecops_alm.module.devsecops_cc_toolchain[0].module.pipeline_cc.ibm_cd_tekton_pipeline_trigger.cc_pipeline_timed_trigger[0]",
 			},
+		},
+		TerraformVars: map[string]interface{}{
+			"enable_secrets_manager": false,
+			"enable_key_protect":     false,
 		},
 	})
 
