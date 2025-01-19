@@ -136,20 +136,8 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                
+
               ]
-            },
-            {
-              "name": "deploy-arch-ibm-cos",
-              "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": ">=v8.17.0",
-              "flavors": [
-                "instance"
-              ],
-              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "optional": false,
-              "on_by_default": true,
-              "input_mapping": []
             },
             {
               "name": "deploy-arch-ibm-cos",
