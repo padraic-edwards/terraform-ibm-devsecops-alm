@@ -136,20 +136,10 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-
+                {
+                  "sm_service_plan": "trial"
+                }
               ]
-            },
-            {
-              "name": "deploy-arch-ibm-cos",
-              "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": ">=v8.17.0",
-              "flavors": [
-                "instance"
-              ],
-              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "optional": false,
-              "on_by_default": true,
-              "input_mapping": []
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
@@ -188,16 +178,37 @@
               "input_mapping": []
             },
             {
-              "name": "deploy-arch-ibm-account-infra-base",
-              "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "version": ">=v1.17.3",
+              "name": "testing-deploy-arch-ibm-scc",
+              "id": "b773b1d4-69bb-48db-a657-2307015eb9c1-global",
+              "version": ">=1.0.8",
               "flavors": [
-                "standard"
+                "instances"
               ],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "optional": true,
               "on_by_default": true,
-              "input_mapping": []
+              "input_mapping": [
+                  {
+                    "name": "use_existing_resource_group",
+                    "value": true
+                  },
+                  {
+                    "name": "kms_endpoint_type",
+                    "value": "private"
+                  },
+                  {
+                    "name": "skip_cos_kms_auth_policy",
+                    "value": true
+                  },
+                  {
+                    "name": "scc_service_plan",
+                    "value": "standard"
+                  },
+                  {
+                    "name": "provision_scc_workload_protection",
+                    "value": false
+                  }
+              ]
             }
           ],
           "configuration": [
@@ -260,7 +271,7 @@
             {
               "key": "registry_namespace",
               "type": "string",
-              "default_value": "",
+              "default_value": "devsecops",
               "description": "A unique namespace within the IBM Cloud Container Registry region where the application image is stored.",
               "required": true
             },
@@ -1284,7 +1295,7 @@
             {
               "key": "create_cd_instance",
               "type": "boolean",
-              "default_value": false,
+              "default_value": true,
               "description": "Set to `true` to create Continuous Delivery Service.",
               "required": false
             },
@@ -2214,7 +2225,12 @@
               ],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "optional": true,
-              "on_by_default": true
+              "on_by_default": true,
+              "input_mapping": [
+                {
+                  "dependency_output": "kms_instance_crn"
+                }
+              ]
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
@@ -2323,7 +2339,7 @@
             {
               "key": "registry_namespace",
               "type": "string",
-              "default_value": "",
+              "default_value": "devsecops",
               "description": "A unique namespace within the IBM Cloud Container Registry region where the application image is stored.",
               "required": true
             },
