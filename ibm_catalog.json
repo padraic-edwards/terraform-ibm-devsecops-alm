@@ -140,8 +140,8 @@
               "on_by_default": true,
               "input_mapping": [
                 {
-                  "dependency_input": "sm_location",
-                  "version_input": "region",
+                  "dependency_input": "sm_service_plan",
+                  "version_input": "sm_service_plan",
                   "reference_version:": true
                 }
               ]
