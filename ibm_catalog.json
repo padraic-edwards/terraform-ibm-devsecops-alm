@@ -2396,6 +2396,23 @@
               }
             },
             {
+							"key": "sm_service_plan",
+							"type": "string",
+							"default_value": "trial",
+							"description": "The pricing plan to use for Secrets Manager.",
+							"required": false,
+							"options": [
+								{
+									"displayname": "standard",
+									"value": "standard"
+								},
+								{
+									"displayname": "trial",
+									"value": "trial"
+								}
+							]
+						},
+            {
               "key": "sm_name",
               "type": "string",
               "default_value": "Secrets Manager",
