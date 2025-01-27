@@ -212,6 +212,7 @@
               ]
             }
           ],
+          "dependency_version_2": true,
           "configuration": [
             {
               "key": "toolchain_name",
