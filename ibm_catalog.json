@@ -136,10 +136,11 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                  {
-                    "version_input": "sm_service_plan",
-                    "value": "trial"
-                  }
+                {
+                  "dependency_input": "sm_service_plan",
+                  "version_input": "sm_service_plan",
+                  "reference_version:": true
+                }
               ]
             },
             {
@@ -190,23 +191,23 @@
               "on_by_default": true,
               "input_mapping": [
                   {
-                    "version_input": "use_existing_resource_group",
+                    "dependency_input": "use_existing_resource_group",
                     "value": true
                   },
                   {
-                    "version_input": "kms_endpoint_type",
+                    "dependency_input": "kms_endpoint_type",
                     "value": "private"
                   },
                   {
-                    "version_input": "skip_cos_kms_auth_policy",
+                    "dependency_input": "skip_cos_kms_auth_policy",
                     "value": true
                   },
                   {
-                    "version_input": "scc_service_plan",
+                    "dependency_input": "scc_service_plan",
                     "value": "standard"
                   },
                   {
-                    "version_input": "provision_scc_workload_protection",
+                    "dependency_input": "provision_scc_workload_protection",
                     "value": false
                   }
               ]
@@ -299,6 +300,23 @@
                 }
               }
             },
+            {
+							"key": "sm_service_plan",
+							"type": "string",
+							"default_value": "trial",
+							"description": "The pricing plan to use for Secrets Manager.",
+							"required": false,
+							"options": [
+								{
+									"displayname": "standard",
+									"value": "standard"
+								},
+								{
+									"displayname": "trial",
+									"value": "trial"
+								}
+							]
+						},
             {
               "key": "sm_name",
               "type": "string",
