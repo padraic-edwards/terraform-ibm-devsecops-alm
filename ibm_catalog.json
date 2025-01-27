@@ -141,7 +141,7 @@
               "input_mapping": [
                 {
                   "dependency_input": "sm_location",
-                  "version_input": "sm_location",
+                  "version_input": "region",
                   "reference_version:": true
                 }
               ]
