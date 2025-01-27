@@ -4,6 +4,9 @@
       "label": "DevSecOps Application Lifecycle Management",
       "name": "deploy-arch-ibm-devsecops-alm-padraic",
       "product_kind": "solution",
+      "ignore_auto_referencing": [
+        "*"
+      ],
       "tags": [
         "enterprise_app"
       ],
