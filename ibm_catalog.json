@@ -136,9 +136,10 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                {
-                  "sm_service_plan": "trial"
-                }
+                  {
+                    "version_input": "sm_service_plan",
+                    "value": "trial"
+                  }
               ]
             },
             {
@@ -189,23 +190,23 @@
               "on_by_default": true,
               "input_mapping": [
                   {
-                    "name": "use_existing_resource_group",
+                    "version_input": "use_existing_resource_group",
                     "value": true
                   },
                   {
-                    "name": "kms_endpoint_type",
+                    "version_input": "kms_endpoint_type",
                     "value": "private"
                   },
                   {
-                    "name": "skip_cos_kms_auth_policy",
+                    "version_input": "skip_cos_kms_auth_policy",
                     "value": true
                   },
                   {
-                    "name": "scc_service_plan",
+                    "version_input": "scc_service_plan",
                     "value": "standard"
                   },
                   {
-                    "name": "provision_scc_workload_protection",
+                    "version_input": "provision_scc_workload_protection",
                     "value": false
                   }
               ]
