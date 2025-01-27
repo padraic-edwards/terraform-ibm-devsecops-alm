@@ -4,9 +4,6 @@
       "label": "DevSecOps Application Lifecycle Management",
       "name": "deploy-arch-ibm-devsecops-alm-padraic",
       "product_kind": "solution",
-      "ignore_auto_referencing": [
-        "*"
-      ],
       "tags": [
         "enterprise_app"
       ],
@@ -131,6 +128,9 @@
             {
               "name": "testing-deploy-arch-ibm-secrets-manager",
               "id": "5f149ae6-d781-460a-977d-c8c4171ad0fa-global",
+              "ignore_auto_referencing": [
+                "*"
+              ],
               "version": ">=1.2.1",
               "flavors": [
                 "standard"
