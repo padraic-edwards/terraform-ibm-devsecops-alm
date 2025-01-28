@@ -1017,6 +1017,12 @@ variable "sm_location" {
   default     = "us-south"
 }
 
+variable "sm_service_plan" {
+  type        = string
+  description = ""
+  default     = "trial"
+}
+
 variable "sm_name" {
   type        = string
   description = "The name of an existing Secret Managers instance. This applies to the CI, CD and CC Secret Manager integrations."
